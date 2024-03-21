@@ -109,10 +109,10 @@ function ResultTable(name, col_names, cfg, gb) {
     resultt.html(rows.map(function(row, i) {
         var tr = $('<tr/>');
         tr.html(row.map(function(val, j) {
-            var tdid = '';
+            var tdid = 'th';
             if ((i > 0) && (j > 0))
-                tdid = 'id="'+table.cellid(i-1, j-1) +'"';
-            var c = $('<td '+tdid+'/>').html(val)[0];
+                tdid = 'td id="'+table.cellid(i-1, j-1) +'"';
+            var c = $('<'+tdid+'/>').html(val)[0];
             return c;
         }));
         return tr[0];
@@ -144,22 +144,52 @@ ResultTable.prototype.calc = function() {
     }
 }
 GEARBOXES = [{
-    name: '1.3/2.6',
-    ratios: [1.32, 2.64],
-    kits: ['HF +15%H/+75%L', 'TG +15%H/+104%L'],
-},{
-    name: '1.0/2.0',
-    ratios: [1.0, 2.0],
-    kits: ['TG +17%H/+87%L'],
-}];
+        name: '1.3/2.6',
+        ratios: [1.32, 2.643],
+        kits: ['HF +15%H/+75%L', 'TG +15%H/+104%L'],
+    },{
+        name: '1.0/2.0',
+        ratios: [1.0, 2.0],
+        kits: ['TG +17%H/+87%L'],
+    }, {
+        name: '1.32/2.145',
+        ratios: [1.32, 2.145],
+        kits: [],
+    }, {
+        name: '1.580/2.511 (JA11)',
+        ratios: [1.580, 2.511],
+        kits: [],
+    }, {
+        name: '1.409/2.268 (JB31)',
+        ratios: [1.409, 2.268],
+        kits: [],
+    }, {
+        name: '1.589/2.557 no kit',
+        ratios: [1.589, 2.557],
+        kits: [],
+    }
+];
 DB = [
     new Transmission({
         type: 'wheel',
         header: 'Колесо',
         values: {
             '205/70R15': [26.3],
+            '205/75R15': [27.1],
+            '195/80R15': [27.3],
             '215/75R15': [27.7],
+            '215/80R15': [28.5],
             '235/75R15': [28.9],
+
+            '175/80R16': [27.0],
+            '185/85R16': [28.4],
+            '205/80R16': [28.9],
+            '215/85R16': [30.4],
+            '235/85R16': [31.7],
+
+            '30"': [30],
+            '31"': [31],
+            '33"': [33],
         }}),
     new Transmission({
         type: 'transmission',
@@ -168,6 +198,8 @@ DB = [
         values: {
             'АКПП TW40-LE': [2.875, 1.568, 1.000, 0.696, '',    2.300],
             'МКПП R72':     [4.425, 2.304, 1.674, 1.190, 1.000, 5.151],
+            'АКПП A174':    [2.962, 1.515, 1.000, 0.738, '',    2.810],
+            'МКПП R7ME':    [3.652, 1.947, 1.423, 1.000, 0.864, 3.466],
         }}),
     new Transmission({
         type: 'gearbox',
@@ -181,6 +213,8 @@ DB = [
         values: {
             '4.09': [4.09],
             '4.3': [4.3],
+            'HF 4.625': [4.625],
+            'HF 4.88': [4.88]
         }}),
 ];
 const TRANSMISSION = 1;
@@ -202,7 +236,10 @@ function init_data(name, cfg) {
     for (let rown = 0; rown < cols[0].length; rown++) {
         var tr = $('<tr/>')[0];
         for (let coln = 0; coln < cols.length; coln++) {
-            var c = $('<td/>').html(cols[coln][rown])[0];
+            var td = 'th';
+            if ((rown > 0) && (coln > 0))
+                td = 'td';
+            var c = $('<'+td+'/>').html(cols[coln][rown])[0];
             tr.appendChild(c);
         }
         datat.appendChild(tr);
