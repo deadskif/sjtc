@@ -246,30 +246,42 @@ function init_data(name, cfg) {
     }
 }
 var TABLES = [];
-function init_result(name, cfg, gb) {
-    TABLES.push(new ResultTable(name,
-        [1000, 2000, 3000, 4000, 5000, 6000, 7000],
-        cfg, gb));
+function init_result(name, cfgnum) {
+    var table = $("table#"+name)[0];
+    for (var gb = 0; gb < 2; gb++) {
+        var tr = $('<tr/>')[0];
+        table.appendChild(tr);
+        for (var cfg = 1; cfg <= cfgnum; cfg++) {
+            var rname = name + cfg + '_' + gb;
+            tr.innerHTML += '<td><table id="'+rname+'"/></table></td>';
+            TABLES.push(new ResultTable(rname,
+                [1000, 2000, 3000, 4000, 5000, 6000, 7000],
+                cfg, gb));
+        }
+    }
 }
 function init() {
-    init_data('data', 2);
-    init_result('result1_hi', 1, 0);
-    init_result('result1_lo', 1, 1);
-    init_result('result2_hi', 2, 0);
-    init_result('result2_lo', 2, 1);
+    var configs = 2;
+    init_data('data', configs);
+    init_result('result', configs);
+    new URLSearchParams(window.location.search).forEach(
+        (val, key) => $("select#"+key).each(
+            (i, sel) => sel.selectedIndex = val));
     $("select").change();
 }
 </script>
 <body onload="init()">
     <table id="data"></table>
     <div id='calc'></div>
-    <table>
+    <table id="result">
+        <!--
         <tr>
             <td><table id="result1_hi"></table></td><td><table id="result2_hi"></table></td>
         </tr>
         <tr>
             <td><table id="result1_lo"></table></td><td><table id="result2_lo"></table></td>
         </tr>
+        -->
     </table>
 </body>
 </html> 
