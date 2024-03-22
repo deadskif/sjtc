@@ -40,7 +40,7 @@ function gearbox(gearboxes) {
                 } else {
                     console.log("LOW", kgears);
                     values[gb.name+' '+kit] = [
-                        gears[0],
+                        gb.ratios[0],
                         kgears[2]
                     ];
                 }
@@ -158,7 +158,7 @@ GEARBOXES = [{
     }, {
         name: '1.580/2.511 (JA11)',
         ratios: [1.580, 2.511],
-        kits: [],
+        kits: ['TG 4.16'], /* 4.9:1.63/4.88  6.5:1.69/6.49 */
     }, {
         name: '1.409/2.268 (JB31)',
         ratios: [1.409, 2.268],
@@ -166,6 +166,14 @@ GEARBOXES = [{
     }, {
         name: '1.589/2.557 no kit',
         ratios: [1.589, 2.557],
+        kits: [],
+    }, {
+        name: 'Самурайка 4.9 kit',
+        ratios: [1.64, 4.88],
+        kits: [],
+    }, {
+        name: 'Самурайка 6.5 kit',
+        ratios: [1.69, 6.49],
         kits: [],
     }
 ];
@@ -274,14 +282,6 @@ function init() {
     <table id="data"></table>
     <div id='calc'></div>
     <table id="result">
-        <!--
-        <tr>
-            <td><table id="result1_hi"></table></td><td><table id="result2_hi"></table></td>
-        </tr>
-        <tr>
-            <td><table id="result1_lo"></table></td><td><table id="result2_lo"></table></td>
-        </tr>
-        -->
     </table>
 </body>
 </html> 
