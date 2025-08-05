@@ -222,6 +222,7 @@ DB = [
             '4.09': [4.09],
             '4.3': [4.3],
             '3.909': [3.909],
+            '5.375': [5.375],
             'HF 4.625': [4.625],
             'HF 4.88': [4.88]
         }}),
@@ -264,7 +265,7 @@ function init_result(name, cfgnum) {
             var rname = name + cfg + '_' + gb;
             tr.innerHTML += '<td><table id="'+rname+'"/></table></td>';
             TABLES.push(new ResultTable(rname,
-                [1000, 2000, 3000, 4000, 5000, 6000, 7000],
+                [1000, 2000, 3000, 3500, 4000, 5000, 6000, 7000],
                 cfg, gb));
         }
     }
